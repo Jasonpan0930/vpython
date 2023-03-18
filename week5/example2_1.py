@@ -16,46 +16,22 @@ scene = canvas(width=600, height=600, center=vec(1.6*Re,0,0), background=vec(0.6
 earth = sphere(pos=vec(0,0,0), radius=Re, texture=textures.earth) #放置物件地球
 mater = sphere(pos=vec(r,0,0), v = vec (0,0.7*v0,0), a = vec(0,0,0),radius=0.1*Re,color=color.red, make_trail=True) #放置物件衛星
 
-def position():
-    return vec(mater.pos.x, mater.pos.y, mater.pos.z)
 
-up=vec(0,0,0)
-down=vec(0,0,0)
-left=vec(0,0,0)
-right=vec(0,0,0)
+oval = curve( color = color.yellow )
+for N in range(0, 360, 1):
+    oval.append( pos =(2.119*10**7*cos(N*pi/180)+1.08*10**7,1.823*10**7*sin(N*pi/180),0) )
 
-while(1):  #執行無窮迴圈
+while True:  #執行無窮迴圈
     rate(5000)
     
     mater.a = F_g(mater.pos-earth.pos)/m
     mater.v += mater.a*dt   
     mater.pos += mater.v*dt  
     
+    if mater.v.x > 0 and mater.v.x + mater.a.x*dt < 0:
+        print ('simulated period = ',t, ', theoretical period = ', 2*pi*sqrt(r**3/G/M))
+        t = 0
+
     
-    if(mater.v.y>0 and mater.v.y+mater.a.y*dt<0):
-        up=position()
 
-    if(mater.v.y<0 and mater.v.y+mater.a.y*dt>0): 
-        down=position()
-
-    if(mater.v.x<0 and mater.v.x+mater.a.x*dt>0): 
-        left=position()
-        
-    if(mater.v.x>0 and mater.v.x+mater.a.x*dt<0): 
-        right=position()
-        break
     t += dt
-
-print("上端點:", up)
-print("左端點:", left)
-print("下端點:", down)
-print("右端點:", right)
-
-a=(right.x-left.x)/2
-b=(up.y-down.y)/2
-c=a*a-b*b
-c=sqrt(c)
-
-print("The semi-major axis is : ",a)
-print("The semi-minor axis is : ",b)
-print("The focal distance is : ", c)
