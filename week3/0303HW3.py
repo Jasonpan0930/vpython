@@ -21,9 +21,9 @@ while True:                     #無窮迴圈
     F_vec = rotate(ball.v, angle=-pi/2)    #請使用rotate的語法，找出F向量的方向
     F = 4.0*norm(F_vec)    #沿力的方向(F_vec)長出大小為4.0的力
     
-    if(abs(ball.pos.y-0)<0.01 and ball.pos.x>0):    #右端點條件
+    if(abs(ball.pos.y-0)<mag(ball.v)*dt and ball.pos.x>0):    #右端點條件
         right = ball.pos.x
-    if (abs(ball.pos.y-0)<0.01 and ball.pos.x<0):    #左端點條件
+    if (ball.v.x<0 and (ball.v+ball.a*dt).x>0):    #左端點條件
         left = ball.pos.x
         print ("theoretical radius = ", m*mag(ball.v)*mag(ball.v)/mag(F))    #請思考如何利用受力分析出理論上的半徑為何？
         print ("simulated radius = " , (right-left)/2)    #模擬的半徑值
