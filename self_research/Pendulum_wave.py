@@ -8,7 +8,7 @@ k = 100000              #彈簧力常數 100000 N/m
 m = 0.1                 #球質量 0.1 kg
 theta = 10 * pi/180     #初始擺角
 Fg = m*vector(0,-g,0)   #球所受重力向量
-n=int(input("How many balls will be in the Pendulum wave?"))                 #複擺中單擺數量
+n=10                #複擺中單擺數量
 
 def SpringForce(r,L):
     return -k*(mag(r)-L)*norm(r)
@@ -34,7 +34,7 @@ t_right = 0   #右端點時間
 X=0.2
 
 while True:
-    rate(50/dt)
+    rate(1/dt)
 
     for i in range(n):
         L=L0+i*delta_L
