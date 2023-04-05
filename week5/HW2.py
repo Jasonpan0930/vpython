@@ -35,6 +35,6 @@ while True:  #執行無窮迴圈
     
     # 於迴圈內設定label位置以及顯示變數值
     A_lab.pos = mater.pos + vec(0,3*10**6,0)
-    A_lab.text = str('areal velocity = %.0f'%A)
+    A_lab.text = str('areal velocity = %.5f'%A)
     
     t += dt
