@@ -3,6 +3,7 @@ from vpython import *
 m1=10000000000
 m2=1
 
+m1=10**(int(input("輸入n=(pi的位數*2) (n<=14)："))-2)
 def collision(v1,v2):
     v11=(m1-m2)/(m1+m2)*v1+(2*m2)/(m1+m2)*v2
     v22=(2*m1)/(m1+m2)*v1+(m2-m1)/(m1+m2)*v2
