@@ -7,7 +7,10 @@ T=0.06
 light=T*(7/8)
 interval=0.02
 balls=[]
-
+gd1 = graph(title = "v-x plot", width=600, height=400, xtitle="x", ytitle="v")
+f=gdots(color=color.blue)
+position=[]
+pre_position=[]
 dt=0.001
 t=0
 tlight=0
@@ -21,7 +24,7 @@ floor = box(length=20, height=0.01, width=10, color=color.green)      #畫地板
 while(True):
     rate(1/dt)
     if(t//T!=(t-dt)//T):
-        ball = sphere(radius = size, color=color.black, pos=vector(0, height, 0), v=vector(0,0,0)) 	#畫球
+        ball = sphere(radius = size, color=color.black, pos=vector(0, height, 0), v=vector(0,0,0))     #畫球
         balls.append(ball)
     for i in  range(len(balls)):
         balls[i].pos+=balls[i].v*dt
@@ -29,8 +32,19 @@ while(True):
 
     if(tlight>=light):
         tlight=0
+        pre_position=[]
+        for i in range(len(position)):
+            pre_position.append(position[i])
+        position=[]
         for i in range(len(balls)):
             balls[i].color=color.white
+            position.append(balls[i].pos.y)
+        for i in range(len(position)-1):
+            minus=[]
+            for j in range(len(pre_position)):
+                minus.append(abs(pre_position[j]-position[i+1]))
+            f.plot(position[i+1], min(minus)/light)
+            
     if(tlight>=interval):
         for i in range(len(balls)):
             balls[i].color=color.black
